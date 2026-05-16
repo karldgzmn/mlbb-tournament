@@ -830,3 +830,14 @@ footer p {
 
 .match-team.winner    { color: #4cff8f; background: rgba(76,255,143,0.06); }
 .match-team.eliminated { color: var(--muted); text-decoration: line-through; opacity: 0.5; }
+
+.group-team-record {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  color: var(--muted);
+  min-width: 2.5rem;  
+  text-align: center;
+}
+.record-win  { color: #4cff8f; }
+.record-loss { color: var(--red); }

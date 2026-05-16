@@ -32,32 +32,32 @@ const groups = [
     letter: "A",
     color: "#FFD700",   // gold
     teams: [
-      { name: "Bonakids",       captain: "Aldrin Mabalot" },
-      { name: "INA",            captain: "Marvel Ariono" },
-      { name: "Damayge",        captain: "Louis Naingue" },
-      { name: "Brave Nephites", captain: "Jay R Gallano" },
-      { name: "Purok Dos",      captain: "Ice Cesario" },
+      { name: "Sample", captain: "Karl De Guzman", advances: true, w: 2, l: 1 },
+      { name: "INA",            captain: "Marvel Ariono" , w: 0, l: 0},
+      { name: "Damayge",        captain: "Louis Naingue" , w: 0, l: 0},
+      { name: "Brave Nephites", captain: "Jay R Gallano" , w: 0, l: 0},
+      { name: "Purok Dos",      captain: "Ice Cesario" , w: 0, l: 0},
     ]
   },
   {
     letter: "B",
     color: "#00e5ff",   // cyan
     teams: [
-      { name: "Genggeng",           captain: "Adam Caducio" },
-      { name: "Mormon Legends",     captain: "Elijah Duran" },
-      { name: "First Blood Donors", captain: "Rex Basulgan" },
-      { name: "Bleach Please",      captain: "Heber Murcillios" },
-      { name: "Aral o Laro?",       captain: "Ezra Vejandre" },
+      { name: "Genggeng",           captain: "Adam Caducio" , w: 0, l: 0},
+      { name: "Mormon Legends",     captain: "Elijah Duran" , w: 0, l: 0},
+      { name: "First Blood Donors", captain: "Rex Basulgan" , w: 0, l: 0},
+      { name: "Bleach Please",      captain: "Heber Murcillios" , w: 0, l: 0},
+      { name: "Aral o Laro?",       captain: "Ezra Vejandre" , w: 0, l: 0},
     ]
   },
   {
     letter: "C",
     color: "#FF2442",   // red
     teams: [
-      { name: "Worcestershire Sauce", captain: "Dean Caro" },
-      { name: "Team 2?",              captain: "Ed Salazar" },
-      { name: "Chulalongcorn",        captain: "John Vincent Vicente" },
-      { name: "Btree",                captain: "Abigail Bala" },
+      { name: "Worcestershire Sauce", captain: "Dean Caro" , w: 0, l: 0},
+      { name: "Team 2?",              captain: "Ed Salazar" , w: 0, l: 0},
+      { name: "Chulalongcorn",        captain: "John Vincent Vicente" , w: 0, l: 0},
+      { name: "Btree",                captain: "Abigail Bala" , w: 0, l: 0},
     ]
   }
 ];
@@ -71,7 +71,7 @@ const knockoutData = [
     round: "Quarterfinals",
     sub: "Day 2 · May 27 · Ballroom",
     matches: [
-      { id: "QF1", t1: "INA", t2: "Bonakids", s1: "A1", s2: "C2", winner: "Bonakids" },
+      { id: "QF1", t1: "1st Group A", t2: "Sample", s1: "A1", s2: "C2", winner: "Sample" },
       { id: "QF2", t1: "1st Group B", t2: "2nd Group A", s1: "B1", s2: "A2" },
       { id: "QF3", t1: "1st Group C", t2: "2nd Group B", s1: "C1", s2: "B2" },
     ]
@@ -130,13 +130,15 @@ function renderTeams() {
 function renderGroups() {
   const groupsGrid = document.getElementById('groupsGrid');
   groups.forEach(g => {
-    const rows = g.teams.map((t, i) => `
-      <div class="group-team-row">
-        <span class="group-team-pos">${i + 1}</span>
-        <span class="group-team-name">${t.name}</span>
-        <span class="group-team-cap">${t.captain}</span>
-        ${i < 2 ? '<span class="advance-tag">ADVANCES</span>' : ''}
-      </div>`).join('');
+      const rows = g.teams.map((t, i) => `
+        <div class="group-team-row">
+          <span class="group-team-pos">${i + 1}</span>
+          <span class="group-team-name">${t.name}</span>
+          <span class="group-team-cap">${t.captain}</span>
+          <span class="group-team-record ${t.w > t.l ? 'record-win' : t.l > t.w ? 'record-loss' : ''}">${t.w}-${t.l}</span>
+          ${t.advances ? '<span class="advance-tag">ADVANCES</span>' : ''}
+        </div>`).join('');
+      
 
     groupsGrid.innerHTML += `
       <div class="group-card reveal">
