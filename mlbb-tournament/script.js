@@ -471,6 +471,12 @@ function initModal() {
       search.value = '';
     }
   });
+
+  document.getElementById('showRostersBtn').addEventListener('click', () => {
+  renderRosters();
+  document.getElementById('rosterModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
 }
 
 // Mobile nav toggle
