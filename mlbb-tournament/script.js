@@ -417,7 +417,6 @@ function renderRosters(filter = '') {
       .map(p => `
         <div class="roster-player">
           <span class="roster-player-name">${p.name}</span>
-          ${p.rank ? `<span class="roster-rank" style="color:${rankColor(p.rank)}">${p.rank}</span>` : ''}
         </div>`).join('');
 
     return `
