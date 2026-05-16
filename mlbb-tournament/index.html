@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MLBB Tournament 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">⚔ MLBB TOURNEY</div>
+  <button class="nav-toggle" id="navToggle">☰</button>
+  <div class="nav-links" id="navLinks">
+    <a href="#schedule">Schedule</a>
+    <a href="#teams">Teams</a>
+    <a href="#bracket">Bracket</a>
+    <a href="#rules">Rules</a>
+    <a href="#" id="rosterNavBtn" class="nav-roster-btn">Show Teams</a>
+  </div>
+</nav>
+
+<!-- ── ROSTER MODAL ── -->
+<div class="modal-overlay" id="rosterModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 class="modal-title">Team <em>Rosters</em></h2>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="modal-search-wrap">
+      <input class="modal-search" id="rosterSearch" type="text" placeholder="Search team or player...">
+    </div>
+    <div class="roster-grid" id="rosterGrid"></div>
+  </div>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hex-grid"></div>
+  <p class="hero-tag">Mobile Legends: Bang Bang</p>
+  <h1 class="hero-title">
+    The<br>
+    <span>Tournament</span>
+  </h1>
+  <p class="hero-sub">14 Teams · 3 Days · One Champion</p>
+  <div class="hero-divider"></div>
+  <div class="hero-dates">
+    <div class="date-pill">
+      <span class="day-label">Day 1</span>
+      <span class="date-val">May 23</span>
+      <span class="venue">Online · Discord</span>
+    </div>
+    <div class="date-pill">
+      <span class="day-label">Day 2</span>
+      <span class="date-val">May 27</span>
+      <span class="venue">The Ballroom</span>
+    </div>
+    <div class="date-pill">
+      <span class="day-label">Day 3</span>
+      <span class="date-val">Jun 7</span>
+      <span class="venue">The Ballroom</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── SCHEDULE ── -->
+<section id="schedule">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Event Schedule</p>
+      <h2 class="section-title">Tournament <em>Days</em></h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="schedule-grid">
+
+      <div class="sched-card reveal">
+        <div class="sched-num">01</div>
+        <p class="sched-day">Day 1 · Group Stage</p>
+        <p class="sched-date">May 23, 2025</p>
+        <p class="sched-venue">Online via Discord</p>
+        <p class="sched-note">All 14 teams compete in the opening round. Matches held remotely and coordinated through the official tournament Discord server.</p>
+        <span class="badge live">● FB Live Broadcast</span>
+      </div>
+
+      <div class="sched-card reveal">
+        <div class="sched-num">02</div>
+        <p class="sched-day">Day 2 · Playoffs</p>
+        <p class="sched-date">May 27, 2025</p>
+        <p class="sched-venue">The Ballroom</p>
+        <p class="sched-note">Advancing teams battle in person at the Ballroom. Live audience broadcast on-site. High-stakes matches with the crowd watching live.</p>
+        <span class="badge">In-Person Broadcast</span>
+      </div>
+
+      <div class="sched-card reveal">
+        <div class="sched-num">03</div>
+        <p class="sched-day">Day 3 · Grand Finals</p>
+        <p class="sched-date">June 7, 2025</p>
+        <p class="sched-venue">The Ballroom</p>
+        <p class="sched-note">The final showdown. Top teams clash for the championship title at the Ballroom. The ultimate clash to crown the tournament champion.</p>
+        <span class="badge">🏆 Championship Day</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── TEAMS ── -->
+<section id="teams" class="teams-section">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Participants</p>
+      <h2 class="section-title">The <em>14 Teams</em></h2>
+      <div class="section-rule"></div>
+    </div>
+    <!-- Teams are rendered by script.js -->
+    <div class="teams-grid" id="teamsGrid"></div>
+  </div>
+</section>
+
+<!-- ── BRACKET ── -->
+<section id="bracket">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Competition Bracket</p>
+      <h2 class="section-title">Tournament <em>Bracket</em></h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="bracket-note reveal">
+      <strong>Format:</strong> 14 teams split into 3 groups (A &amp; B have 5 teams, C has 4 teams) ·
+      Round-robin within each group on Day 1 · Top 2 teams per group advance (6 teams total) ·
+      Quarterfinals → Semifinals → Grand Finals on Days 2 &amp; 3.
+    </div>
+
+    <!-- GROUP STAGE (rendered by script.js) -->
+    <div class="reveal">
+      <p class="section-label" style="margin-bottom:1.5rem;">Day 1 · May 23 · Online via Discord</p>
+      <div class="groups-grid" id="groupsGrid"></div>
+    </div>
+
+    <!-- KNOCKOUT BRACKET (rendered by script.js) -->
+    <div class="reveal" style="margin-top:4rem;">
+      <p class="section-label" style="margin-bottom:0.4rem;">Days 2 &amp; 3 · Knockout Stage</p>
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:2px;color:#fff;margin-bottom:1.5rem;">
+        Quarterfinals → Finals
+      </h3>
+      <div class="bracket-wrapper">
+        <div class="bracket" id="bracketEl"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── RULES ── -->
+<section id="rules" class="rules-section">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Official Guidelines</p>
+      <h2 class="section-title">Rules &amp; <em>Regulations</em></h2>
+      <div class="section-rule"></div>
+    </div>
+    <!-- Rules are rendered by script.js -->
+    <div class="rules-grid" id="rulesGrid"></div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">⚔ MLBB Tournament</div>
+  <p>May 23 · May 27 · June 7, 2025 &nbsp;|&nbsp; All rights reserved by the organizers.</p>
+  <p style="margin-top:0.3rem;">Good luck to all 14 teams. May the best squad win. 🏆</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
