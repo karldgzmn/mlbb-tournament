@@ -15,7 +15,7 @@ const teams = [
   { num: 9,  name: "Bleach Please",        captain: "Heber Murcillios" },
   { num: 10, name: "Aral o Laro?",         captain: "Ezra Vejandre" },
   { num: 11, name: "Worcestershire Sauce", captain: "Dean Caro" },
-  { num: 12, name: "Team 2?",              captain: "Ed Salazar" },
+  { num: 12, name: "Turret Jumpers",       captain: "Ed Salazar" },
   { num: 13, name: "Chulalongcorn",        captain: "John Vincent Vicente" },
   { num: 14, name: "Btree",               captain: "Abigail Bala" },
 ];
@@ -41,7 +41,7 @@ const rosters = [
   { seed: 6,  name: "First Blood Donors",   players: [{ name: "Rex Basulgan" }, { name: "Jerico Narag" }, { name: "Spencer Basulgan" }, { name: "Zen Pajarin" }, { name: "Joseph Almeria" }] },
   { seed: 7,  name: "Bonakids",             players: [{ name: "Aldrin Hinckley Mabalot" }, { name: "Dave Butones" }, { name: "Ezekiel Laceste" }, { name: "Sean Camoral" }, { name: "Renz Loria" }, { name: "Jash Sempio" }] },
   { seed: 8,  name: "Btree",                players: [{ name: "Abigail Bala" }, { name: "Van Manarin" }, { name: "Russel Ofalda" }, { name: "Celso Glova" }, { name: "Jared Lopez" }, { name: "John Paul Oquias" }] },
-  { seed: 9,  name: "Team 2?",              players: [{ name: "Ed Salazar" }, { name: "Vaughn Platon" }, { name: "Jarom Balute" }, { name: "Chaoboran Oroum" }, { name: "Redd Gonzaga" }] },
+  { seed: 9,  name: "Turret Jumpers",       players: [{ name: "Ed Salazar" }, { name: "Vaughn Platon" }, { name: "Jarom Balute" }, { name: "Chaoboran Oroum" }, { name: "Redd Gonzaga" }] },
   { seed: 10, name: "Worcestershire Sauce", players: [{ name: "Dean Heber Caro" }, { name: "Dulguun" }, { name: "Wayne Allen Yusi" }, { name: "Zeph Kentaro Hatada" }, { name: "Edrian Oldem" }] },
   { seed: 11, name: "Damayge",              players: [{ name: "Louis Naingue" }, { name: "Paul Sapan" }, { name: "Ediran Oldem" }, { name: "Jadd Pacia" }, { name: "Mayge Sugabo" }, { name: "Kyle Academia" }] },
   { seed: 12, name: "Mormon Legends",       players: [{ name: "Elijah Duran" }, { name: "Seth Acosta" }, { name: "Jamila Acosta" }, { name: "Brian Oldem" }, { name: "Cherish Oldem" }, { name: "Joryl Rivera & Chywel Duran" }] },
