@@ -456,10 +456,11 @@ section {
   padding: 1rem 1.4rem;
   margin-bottom: 2.5rem;
   font-size: 0.9rem;
-  color: var(--muted);
+  color: #ffffff;
   line-height: 1.6;
 }
-.bracket-note strong { color: var(--gold); }
+.bracket-note strong { color: var(--gold); 
+}
 
 .bracket-wrapper {
   overflow-x: auto;
@@ -859,3 +860,116 @@ footer p {
   background: var(--gold);
   color: var(--dark);
 }
+/* ── SWISS STANDINGS TABLE ── */
+.swiss-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+.swiss-table th {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-align: left;
+  padding: 0.5rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+.swiss-table td {
+  padding: 0.55rem 0.8rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 0.9rem;
+}
+.swiss-table tr:hover td { background: rgba(255,215,0,0.03); }
+.swiss-table tr.row-advances td { background: rgba(255,215,0,0.05); }
+.swiss-pos   { color: var(--muted); font-family: 'Orbitron', monospace; font-size: 0.65rem; }
+.swiss-name  { font-weight: 700; color: #fff; }
+.swiss-w     { color: #4cff8f; font-weight: 700; font-family: 'Orbitron', monospace; font-size: 0.8rem; }
+.swiss-l     { color: var(--red); font-weight: 700; font-family: 'Orbitron', monospace; font-size: 0.8rem; }
+.swiss-pending { color: var(--muted); }
+.swiss-note  { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-top: 0.5rem; }
+
+/* ── SWISS ROUNDS ── */
+.swiss-rounds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem;
+}
+.swiss-round-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.swiss-round-header {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--accent);
+  text-transform: uppercase;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0,229,255,0.04);
+}
+.swiss-round-matches { padding: 0.4rem 0; }
+.swiss-match {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  flex-wrap: wrap;
+}
+.swiss-match:last-child { border-bottom: none; }
+.swiss-match-id {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.5rem;
+  color: var(--muted);
+  min-width: 3rem;
+}
+.swiss-match-teams {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 1;
+  flex-wrap: wrap;
+}
+.swiss-team {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--text);
+}
+.swiss-team.tbd      { color: var(--muted); font-style: italic; }
+.swiss-team.winner   { color: #4cff8f; }
+.swiss-team.eliminated { color: var(--muted); text-decoration: line-through; opacity: 0.5; }
+.swiss-vs {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.5rem;
+  color: var(--muted);
+}
+.swiss-winner-tag {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.5rem;
+  color: #4cff8f;
+  margin-left: auto;
+}
+
+/* ── DOUBLE ELIMINATION BRACKET ── */
+.bracket-section-wrap { display: flex; flex-direction: column; gap: 2rem; }
+
+.bracket-section-label {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.5rem;
+}
+.losers-label { color: var(--red); }
+
+.losers-header { color: var(--red) !important; }
+
+.match-team.winner    { color: #4cff8f; background: rgba(76,255,143,0.06); }
+.match-team.eliminated { color: var(--muted); text-decoration: line-through; opacity: 0.5; }
