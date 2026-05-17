@@ -449,16 +449,16 @@ section {
   font-style: italic;
 }
 
-/* ── BRACKET ── */
 .bracket-note {
   background: rgba(255,215,0,0.05);
   border-left: 3px solid var(--gold);
   padding: 1rem 1.4rem;
   margin-bottom: 2.5rem;
   font-size: 0.9rem;
-  color: var(--muted);
+  color: #ffffff;
   line-height: 1.6;
 }
+
 .bracket-note strong { color: var(--gold); }
 
 .bracket-wrapper {
