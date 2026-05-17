@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — MLBB Tournament</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #FFD700; --red: #FF2442; --dark: #08090D;
+      --panel: #0e1018; --panel2: #13161f;
+      --border: rgba(255,215,0,0.18); --text: #e8e0cc;
+      --muted: #7a7060; --accent: #00e5ff; --green: #4cff8f;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--dark); color:var(--text); font-family:'Rajdhani',sans-serif; font-size:15px; min-height:100vh; }
+
+    /* ── LOGIN ── */
+    .login-screen {
+      max-width:360px; margin:15vh auto; text-align:center; padding:2rem;
+      background:var(--panel); border:1px solid var(--border); border-top:3px solid var(--gold);
+    }
+    .login-screen h1 { font-family:'Bebas Neue',sans-serif; font-size:2.5rem; color:var(--gold); letter-spacing:3px; margin-bottom:0.3rem; }
+    .login-screen p { color:var(--muted); font-size:0.85rem; margin-bottom:2rem; }
+    .login-input {
+      width:100%; background:var(--panel2); border:1px solid var(--border);
+      color:var(--text); font-family:'Rajdhani',sans-serif; font-size:1rem;
+      padding:0.7rem 1rem; margin-bottom:1rem; outline:none;
+    }
+    .login-input:focus { border-color:var(--gold); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      background:var(--gold); color:var(--dark);
+      font-family:'Orbitron',monospace; font-size:0.65rem;
+      letter-spacing:2px; padding:0.6rem 1.4rem;
+      border:none; cursor:pointer; text-transform:uppercase; transition:opacity 0.2s;
+    }
+    .btn:hover { opacity:0.85; }
+    .btn.red { background:var(--red); color:#fff; }
+    .btn.ghost { background:transparent; border:1px solid var(--border); color:var(--muted); }
+    .btn.ghost:hover { border-color:var(--gold); color:var(--gold); }
+    .btn.small { font-size:0.55rem; padding:0.35rem 0.8rem; }
+
+    /* ── LAYOUT ── */
+    .admin-wrap { display:none; max-width:1000px; margin:0 auto; padding:2rem 1rem 4rem; }
+
+    .admin-header {
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom:2rem; padding-bottom:1rem; border-bottom:1px solid var(--border);
+    }
+    .admin-header h1 { font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--gold); letter-spacing:3px; }
+    .admin-header-links { display:flex; gap:1rem; align-items:center; }
+    .link { color:var(--accent); font-size:0.85rem; text-decoration:none; }
+    .link:hover { text-decoration:underline; }
+
+    .section-title {
+      font-family:'Bebas Neue',sans-serif; font-size:1.5rem;
+      letter-spacing:2px; color:#fff; margin:2.5rem 0 1rem;
+      border-left:3px solid var(--gold); padding-left:0.8rem;
+    }
+    .section-title.red { border-color:var(--red); }
+
+    /* ── TABLES ── */
+    .table-wrap { overflow-x:auto; margin-bottom:1rem; }
+    table { width:100%; border-collapse:collapse; }
+    th {
+      font-family:'Orbitron',monospace; font-size:0.55rem;
+      letter-spacing:2px; color:var(--muted); text-align:left;
+      padding:0.5rem 0.8rem; border-bottom:1px solid var(--border);
+      white-space:nowrap;
+    }
+    td { padding:0.5rem 0.8rem; border-bottom:1px solid rgba(255,255,255,0.04); font-size:0.88rem; }
+    tr:hover td { background:rgba(255,215,0,0.03); }
+    tr.advancing td { background:rgba(76,255,143,0.04); }
+
+    input[type="number"] {
+      width:55px; background:var(--panel2); border:1px solid var(--border);
+      color:var(--text); font-family:'Rajdhani',sans-serif; font-size:0.9rem;
+      padding:0.3rem 0.5rem; text-align:center; outline:none;
+    }
+    input[type="number"]:focus { border-color:var(--gold); }
+    input[type="text"] {
+      width:150px; background:var(--panel2); border:1px solid var(--border);
+      color:var(--text); font-family:'Rajdhani',sans-serif; font-size:0.85rem;
+      padding:0.3rem 0.6rem; outline:none;
+    }
+    input[type="text"]:focus { border-color:var(--gold); }
+
+    select {
+      background:var(--panel2); border:1px solid var(--border);
+      color:var(--text); font-family:'Rajdhani',sans-serif;
+      font-size:0.85rem; padding:0.3rem 0.6rem; cursor:pointer; outline:none;
+    }
+    select:focus { border-color:var(--gold); }
+
+    .checkbox-wrap { display:flex; align-items:center; gap:0.4rem; cursor:pointer; }
+    input[type="checkbox"] { width:16px; height:16px; accent-color:var(--gold); cursor:pointer; }
+
+    .badge-advances {
+      font-family:'Orbitron',monospace; font-size:0.5rem; letter-spacing:1px;
+      background:rgba(76,255,143,0.1); border:1px solid rgba(76,255,143,0.25);
+      color:var(--green); padding:0.15rem 0.5rem;
+    }
+    .badge-winner {
+      font-family:'Orbitron',monospace; font-size:0.5rem; letter-spacing:1px;
+      color:var(--green); margin-left:0.4rem;
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position:fixed; bottom:2rem; right:2rem;
+      background:var(--green); color:var(--dark);
+      font-family:'Orbitron',monospace; font-size:0.65rem; letter-spacing:2px;
+      padding:0.8rem 1.4rem; opacity:0; transition:opacity 0.3s;
+      pointer-events:none; z-index:999;
+    }
+    .toast.show { opacity:1; }
+
+    /* ── TABS ── */
+    .tabs { display:flex; gap:0; border-bottom:1px solid var(--border); margin-bottom:1.5rem; }
+    .tab {
+      font-family:'Orbitron',monospace; font-size:0.6rem; letter-spacing:2px;
+      color:var(--muted); padding:0.7rem 1.4rem; cursor:pointer;
+      border-bottom:2px solid transparent; transition:color 0.2s;
+      text-transform:uppercase;
+    }
+    .tab:hover { color:var(--text); }
+    .tab.active { color:var(--gold); border-bottom-color:var(--gold); }
+
+    .tab-content { display:none; }
+    .tab-content.active { display:block; }
+
+    /* ── ROUND CARDS ── */
+    .rounds-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; }
+    .round-card { background:var(--panel); border:1px solid var(--border); }
+    .round-card-header {
+      font-family:'Orbitron',monospace; font-size:0.6rem; letter-spacing:3px;
+      color:var(--accent); padding:0.6rem 1rem; border-bottom:1px solid var(--border);
+      background:rgba(0,229,255,0.04); text-transform:uppercase;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ── -->
+<div class="login-screen" id="loginScreen">
+  <h1>⚔ Admin</h1>
+  <p>MLBB Tournament Control Panel</p>
+  <input class="login-input" type="password" id="passwordInput" placeholder="Enter admin password" autocomplete="current-password">
+  <br>
+  <button class="btn" onclick="checkPassword()">Enter Panel</button>
+</div>
+
+<!-- ── ADMIN PANEL ── -->
+<div class="admin-wrap" id="adminWrap">
+
+  <div class="admin-header">
+    <h1>⚔ Tournament Admin</h1>
+    <div class="admin-header-links">
+      <a href="index.html" class="link">← View Live Site</a>
+      <button class="btn ghost" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('swiss')">Swiss Stage</div>
+    <div class="tab" onclick="switchTab('bracket')">Bracket</div>
+  </div>
+
+  <!-- SWISS TAB -->
+  <div class="tab-content active" id="tab-swiss">
+
+    <div class="section-title">Swiss Standings</div>
+    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:1rem;">Update W/L after each round. Check Advances for the top 6 once Swiss is complete.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Team</th><th>Wins</th><th>Losses</th><th>Advances</th><th></th></tr>
+        </thead>
+        <tbody id="standingsBody"></tbody>
+      </table>
+    </div>
+
+    <div class="section-title">Swiss Rounds — Match Pairings</div>
+    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:1.2rem;">Fill in team names as each round is announced. Set winner after the match.</p>
+    <div class="rounds-grid" id="swissRoundsAdmin"></div>
+
+  </div>
+
+  <!-- BRACKET TAB -->
+  <div class="tab-content" id="tab-bracket">
+
+    <div class="section-title">Winners Bracket</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Match</th><th>Round</th><th>Team 1</th><th>Team 2</th><th>Winner</th><th></th></tr>
+        </thead>
+        <tbody id="winnersBody"></tbody>
+      </table>
+    </div>
+
+    <div class="section-title red">Losers Bracket</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Match</th><th>Round</th><th>Team 1</th><th>Team 2</th><th>Winner</th><th></th></tr>
+        </thead>
+        <tbody id="losersBody"></tbody>
+      </table>
+    </div>
+
+    <div class="section-title" style="border-color:#c9a800;">Grand Finals</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Match</th><th>Round</th><th>Team 1</th><th>Team 2</th><th>Winner</th><th></th></tr>
+        </thead>
+        <tbody id="grandBody"></tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="toast" id="toast">Saved ✓</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script>
+
+// ── PASSWORD ── Change this to whatever you want
+const ADMIN_PASSWORD = 'mlbb2025';
+
+function checkPassword() {
+  if (document.getElementById('passwordInput').value === ADMIN_PASSWORD) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminWrap').style.display = 'block';
+    loadAll();
+  } else {
+    alert('Wrong password!');
+  }
+}
+document.getElementById('passwordInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkPassword();
+});
+function logout() {
+  document.getElementById('loginScreen').style.display = 'block';
+  document.getElementById('adminWrap').style.display = 'none';
+  document.getElementById('passwordInput').value = '';
+}
+
+// ── TABS ──
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+// ── TOAST ──
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ── LOAD ALL ──
+async function loadAll() {
+  await loadStandings();
+  await loadSwissMatches();
+  await loadBracketMatches();
+}
+
+// ── STANDINGS ──
+async function loadStandings() {
+  const { data, error } = await db.from('swiss_standings').select('*').order('id');
+  if (error) { console.error(error); return; }
+
+  const sorted = [...data].sort((a, b) => b.wins - a.wins || a.losses - b.losses);
+  const tbody = document.getElementById('standingsBody');
+  tbody.innerHTML = sorted.map((t, i) => `
+    <tr class="${t.advances ? 'advancing' : ''}">
+      <td style="color:var(--muted);font-family:'Orbitron',monospace;font-size:0.65rem;">${i+1}</td>
+      <td><strong>${t.name}</strong></td>
+      <td><input type="number" min="0" id="w-${t.id}" value="${t.wins}"></td>
+      <td><input type="number" min="0" id="l-${t.id}" value="${t.losses}"></td>
+      <td>
+        <label class="checkbox-wrap">
+          <input type="checkbox" id="adv-${t.id}" ${t.advances ? 'checked' : ''}>
+          ${t.advances ? '<span class="badge-advances">ADVANCES</span>' : ''}
+        </label>
+      </td>
+      <td><button class="btn small" onclick="saveStanding(${t.id})">Save</button></td>
+    </tr>`).join('');
+}
+
+async function saveStanding(id) {
+  const wins    = parseInt(document.getElementById(`w-${id}`).value) || 0;
+  const losses  = parseInt(document.getElementById(`l-${id}`).value) || 0;
+  const advances = document.getElementById(`adv-${id}`).checked;
+  const { error } = await db.from('swiss_standings').update({ wins, losses, advances }).eq('id', id);
+  if (error) { alert('Error: ' + error.message); return; }
+  showToast();
+  loadStandings();
+}
+
+// ── SWISS MATCHES ──
+async function loadSwissMatches() {
+  const { data, error } = await db.from('swiss_matches').select('*').order('id');
+  if (error) { console.error(error); return; }
+
+  const rounds = {};
+  data.forEach(m => {
+    if (!rounds[m.round_num]) rounds[m.round_num] = [];
+    rounds[m.round_num].push(m);
+  });
+
+  const container = document.getElementById('swissRoundsAdmin');
+  container.innerHTML = Object.entries(rounds).map(([rnum, matches]) => `
+    <div class="round-card">
+      <div class="round-card-header">Round ${rnum}</div>
+      <div style="padding:0.5rem 0;">
+        ${matches.map(m => `
+          <div style="padding:0.5rem 0.8rem;border-bottom:1px solid rgba(255,255,255,0.04);">
+            <div style="font-family:'Orbitron',monospace;font-size:0.5rem;color:var(--muted);margin-bottom:0.3rem;">${m.match_id}</div>
+            <div style="display:flex;gap:0.4rem;align-items:center;flex-wrap:wrap;margin-bottom:0.3rem;">
+              <input type="text" id="t1-${m.id}" value="${m.team1}" placeholder="Team 1">
+              <span style="color:var(--muted);font-size:0.75rem;">vs</span>
+              <input type="text" id="t2-${m.id}" value="${m.team2}" placeholder="Team 2">
+            </div>
+            <div style="display:flex;gap:0.5rem;align-items:center;">
+              <select id="sw-${m.id}">
+                <option value="">— TBD —</option>
+                <option value="${m.team1}" ${m.winner===m.team1?'selected':''}>${m.team1}</option>
+                <option value="${m.team2}" ${m.winner===m.team2?'selected':''}>${m.team2}</option>
+              </select>
+              <button class="btn small" onclick="saveSwissMatch(${m.id})">Save</button>
+              ${m.winner ? `<span class="badge-winner">✓ ${m.winner}</span>` : ''}
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+async function saveSwissMatch(id) {
+  const team1  = document.getElementById(`t1-${id}`).value.trim();
+  const team2  = document.getElementById(`t2-${id}`).value.trim();
+  const winner = document.getElementById(`sw-${id}`).value;
+  const { error } = await db.from('swiss_matches').update({ team1, team2, winner }).eq('id', id);
+  if (error) { alert('Error: ' + error.message); return; }
+  showToast();
+  loadSwissMatches();
+}
+
+// ── BRACKET MATCHES ──
+async function loadBracketMatches() {
+  const { data, error } = await db.from('bracket_matches').select('*').order('id');
+  if (error) { console.error(error); return; }
+
+  const winners = data.filter(m => m.bracket === 'winners');
+  const losers  = data.filter(m => m.bracket === 'losers');
+  const grand   = data.filter(m => m.bracket === 'grand');
+
+  renderBracketTable('winnersBody', winners);
+  renderBracketTable('losersBody',  losers);
+  renderBracketTable('grandBody',   grand);
+}
+
+function renderBracketTable(tbodyId, matches) {
+  document.getElementById(tbodyId).innerHTML = matches.map(m => `
+    <tr>
+      <td><strong style="font-family:'Orbitron',monospace;font-size:0.7rem;">${m.match_id}</strong></td>
+      <td style="color:var(--muted);font-size:0.8rem;">${m.round}</td>
+      <td><input type="text" id="bt1-${m.id}" value="${m.team1}"></td>
+      <td><input type="text" id="bt2-${m.id}" value="${m.team2}"></td>
+      <td>
+        <select id="bw-${m.id}">
+          <option value="">— TBD —</option>
+          <option value="${m.team1}" ${m.winner===m.team1?'selected':''}>${m.team1}</option>
+          <option value="${m.team2}" ${m.winner===m.team2?'selected':''}>${m.team2}</option>
+        </select>
+        ${m.winner ? `<span class="badge-winner">✓ ${m.winner}</span>` : ''}
+      </td>
+      <td><button class="btn small" onclick="saveBracketMatch(${m.id})">Save</button></td>
+    </tr>`).join('');
+}
+
+async function saveBracketMatch(id) {
+  const team1  = document.getElementById(`bt1-${id}`).value.trim();
+  const team2  = document.getElementById(`bt2-${id}`).value.trim();
+  const winner = document.getElementById(`bw-${id}`).value;
+  const { error } = await db.from('bracket_matches').update({ team1, team2, winner }).eq('id', id);
+  if (error) { alert('Error: ' + error.message); return; }
+  showToast();
+  loadBracketMatches();
+}
+
+</script>
+</body>
+</html>
