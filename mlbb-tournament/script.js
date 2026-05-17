@@ -44,7 +44,7 @@ const rosters = [
   { seed: 9,  name: "Turret Jumpers",       players: [{ name: "Ed Salazar" }, { name: "Vaughn Platon" }, { name: "Jarom Balute" }, { name: "Chaoboran Oroum" }, { name: "Redd Gonzaga" }] },
   { seed: 10, name: "Worcestershire Sauce", players: [{ name: "Dean Heber Caro" }, { name: "Dulguun" }, { name: "Wayne Allen Yusi" }, { name: "Zeph Kentaro Hatada" }, { name: "Edrian Oldem" }] },
   { seed: 11, name: "Damayge",              players: [{ name: "Louis Naingue" }, { name: "Paul Sapan" }, { name: "Ediran Oldem" }, { name: "Jadd Pacia" }, { name: "Mayge Sugabo" }, { name: "Kyle Academia" }] },
-  { seed: 12, name: "Mormon Legends",       players: [{ name: "Elijah Duran" }, { name: "Seth Acosta" }, { name: "Jamila Acosta" }, { name: "Brian Oldem" }, { name: "Cherish Oldem" }, { name: "Joryl Rivera & Chywel Duran" }] },
+  { seed: 12, name: "Mormon Legends",       players: [{ name: "Elijah Duran" }, { name: "Seth Acosta" }, { name: "Joryl Rivera" }, { name: "Brian Oldem" }, { name: "Cherish Oldem" }, { name: "Chywel Duran" }] },
   { seed: 13, name: "Genggeng",             players: [{ name: "Michael Adam Redeña Caducio" }, { name: "Leonardo Aquino" }, { name: "Aaron Bernard Corridor" }, { name: "Justin Paguio" }, { name: "Beejay Furruganan" }, { name: "Christian Cabalza" }] },
   { seed: 14, name: "INA",                  players: [{ name: "Aru" }, { name: "DenDental" }, { name: "Hennri" }, { name: "Jared" }, { name: "NasuUduk" }, { name: "Tommy & Arlenn" }] },
 ];
