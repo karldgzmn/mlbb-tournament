@@ -17,7 +17,7 @@ const teams = [
   { num: 11, name: "Worcestershire Sauce", captain: "Dean Caro" },
   { num: 12, name: "Turret Jumpers",       captain: "Ed Salazar" },
   { num: 13, name: "Chulalongcorn",        captain: "John Vincent Vicente" },
-  { num: 14, name: "Btree",               captain: "Abigail Bala" },
+  { num: 14, name: "Btree",                captain: "Abigail Bala" },
 ];
 
 // ── RULES ──
@@ -300,6 +300,30 @@ function initScrollReveal() {
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
+// ── COUNTDOWN ──
+function initCountdown() {
+  const target = new Date('2026-05-23T00:00:00');
+  function update() {
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('countdownWrap').innerHTML =
+        '<p class="countdown-started">🏆 Tournament Has Started!</p>';
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent  = String(d).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+  }
+  update();
+  setInterval(update, 1000);
+}
+
 // ── INIT ──
 async function init() {
   renderTeams();
@@ -316,3 +340,4 @@ async function init() {
 }
 
 init();
+initCountdown();

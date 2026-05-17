@@ -38,6 +38,12 @@ body::before {
   pointer-events: none;
   z-index: 0;
   opacity: 0.6;
+  animation: bgDrift 12s ease-in-out infinite;
+}
+
+@keyframes bgDrift {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(1.05); }
 }
 
 /* ── NAV ── */
@@ -93,6 +99,25 @@ nav {
     radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,36,66,0.13) 0%, transparent 70%),
     radial-gradient(ellipse 60% 40% at 80% 60%, rgba(255,215,0,0.07) 0%, transparent 60%),
     radial-gradient(ellipse 50% 50% at 20% 80%, rgba(0,229,255,0.05) 0%, transparent 60%);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 800px; height: 800px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -60%);
+  background: radial-gradient(circle, rgba(0,102,255,0.15) 0%, transparent 70%);
+  pointer-events: none;
+  animation: bgMove 8s ease-in-out infinite;
+}
+
+@keyframes bgMove {
+  0%   { transform: translate(-50%, -60%) scale(1);    background: radial-gradient(circle, rgba(0,102,255,0.15) 0%, transparent 70%); }
+  25%  { transform: translate(-60%, -50%) scale(1.1);  background: radial-gradient(circle, rgba(255,36,66,0.1) 0%, transparent 70%); }
+  50%  { transform: translate(-50%, -40%) scale(1.2);  background: radial-gradient(circle, rgba(255,215,0,0.08) 0%, transparent 70%); }
+  75%  { transform: translate(-40%, -55%) scale(1.05); background: radial-gradient(circle, rgba(0,229,255,0.12) 0%, transparent 70%); }
+  100% { transform: translate(-50%, -60%) scale(1);    background: radial-gradient(circle, rgba(0,102,255,0.15) 0%, transparent 70%); }
 }
 
 .hex-grid {
@@ -955,3 +980,69 @@ footer p {
 .losers-header { color: var(--red) !important; }
 .match-team.winner { color: #4cff8f; background: rgba(76,255,143,0.06); }
 .match-team.eliminated { color: var(--muted); text-decoration: line-through; opacity: 0.5; }
+
+/* ── COUNTDOWN ── */
+.countdown-wrap {
+  margin-top: 2.5rem;
+  text-align: center;
+  animation: fadeDown 1s 0.5s ease both;
+  position: relative;
+  z-index: 1;
+}
+.countdown-label {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 5px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.countdown-boxes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.countdown-box {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-top: 2px solid var(--gold);
+  padding: 1rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  min-width: 80px;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+}
+.countdown-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  line-height: 1;
+  color: #ffffff;
+  letter-spacing: 3px;
+}
+
+.countdown-unit {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+}
+.countdown-sep {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  color: rgba(255,215,0,0.4);
+  padding-bottom: 1.2rem;
+}
+.countdown-started {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  color: var(--green);
+  text-transform: uppercase;
+  animation: pulse 1.5s ease-in-out infinite;
+}
