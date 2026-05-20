@@ -183,19 +183,19 @@ async function renderBracket() {
 
   const wHTML = wRounds.map(r => `
     <div class="round">
-      <div class="round-header">${r.round}<br><span style="color:var(--muted);font-size:0.5rem;">${r.round === 'Winners Final' ? 'Day 3 · June 7' : 'Day 2 · May 27'} · Ballroom</span></div>
+      <div class="round-header">${r.round}<br><span style="color:var(--muted);font-size:0.5rem;">${r.round === 'Winners Final' ? 'Day 3 · June 6' : 'Day 2 · May 27'} · Ballroom</span></div>
       <div class="round-matches">${r.matches.map(m => matchCard(m)).join('')}</div>
     </div>`).join('');
 
   const gfHTML = grand.map(m => `
     <div class="round">
-      <div class="round-header" style="color:var(--gold);">Grand Finals<br><span style="color:var(--muted);font-size:0.5rem;">Day 3 · June 7 · Ballroom</span></div>
+      <div class="round-header" style="color:var(--gold);">Grand Finals<br><span style="color:var(--muted);font-size:0.5rem;">Day 3 · June 6 · Ballroom</span></div>
       <div class="round-matches">${matchCard(m, true)}</div>
     </div>`).join('');
 
   const lHTML = lRounds.map(r => `
     <div class="round">
-      <div class="round-header losers-header">${r.round}<br><span style="color:var(--muted);font-size:0.5rem;">${r.round === 'Losers Final' ? 'Day 3 · June 7' : 'Day 2 · May 27'} · Ballroom</span></div>
+      <div class="round-header losers-header">${r.round}<br><span style="color:var(--muted);font-size:0.5rem;">${r.round === 'Losers Final' ? 'Day 3 · June 6' : 'Day 2 · May 27'} · Ballroom</span></div>
       <div class="round-matches">${r.matches.map(m => matchCard(m)).join('')}</div>
     </div>`).join('');
 
