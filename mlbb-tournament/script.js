@@ -34,7 +34,7 @@ const rules = [
 // ── ROSTER DATA ──
 const rosters = [
   { seed: 1,  name: "Chulalongcorn",        players: [{ name: "John Vincent Vicente" }, { name: "Chris John Hidalgo" }, { name: "Marc Angelo Esquivel" }, { name: "Christian Laurence Abacajin" }, { name: "JJ Vicente" }, { name: "Nerlyn Dave Alcantara" }] },
-  { seed: 2,  name: "Purok Dos",            players: [{ name: "Ice Cesario" }, { name: "Nico Quitola" }, { name: "John Humphrey Valiente" }, { name: "Jarom Kyle Notarte" }, { name: "Ryan Christian Pena" }] },
+  { seed: 2,  name: "Purok Dos",            players: [{ name: "Ice Cesario" }, { name: "Nico Quitola" }, { name: "John Humphrey Valiente" }, { name: "Jarom Kyle Notarte" }, { name: "Ryan Christian Pena"}, { name: "Ronniel Pangilinan"}] },
   { seed: 3,  name: "Bleach Please",        players: [{ name: "Heber Murcillos" }, { name: "Annan Lim" }, { name: "Isaiah Gasmen" }, { name: "Ryan Dones" }, { name: "Jared Rodrigo" }, { name: "Eric Goria" }] },
   { seed: 4,  name: "Brave Nephites",       players: [{ name: "Jay-R Gallano" }, { name: "Yaz Darasin" }, { name: "Jordane Almoragie" }, { name: "Hyrum Busania" }, { name: "Rommel Cornelio" }, { name: "Prince Pason" }] },
   { seed: 5,  name: "Aral o Laro?",         players: [{ name: "Ezra Vejandre" }, { name: "Keena Marcaida" }, { name: "Allen Escalona" }, { name: "Alden Escalona" }, { name: "Kenneth Manarin" }, { name: "Jea Albano" }] },
