@@ -40,7 +40,7 @@ const rosters = [
   { seed: 5,  name: "Aral o Laro?",         players: [{ name: "Ezra Vejandre" }, { name: "Keena Marcaida" }, { name: "Allen Escalona" }, { name: "Alden Escalona" }, { name: "Kenneth Manarin" }, { name: "Jea Albano" }] },
   { seed: 6,  name: "First Blood Donors",   players: [{ name: "Rex Basulgan" }, { name: "Jerico Narag" }, { name: "Spencer Basulgan" }, { name: "Zen Pajarin" }, { name: "Joseph Almeria" }] },
   { seed: 7,  name: "Bonakids",             players: [{ name: "Aldrin Hinckley Mabalot" }, { name: "Dave Butones" }, { name: "Ezekiel Laceste" }, { name: "Sean Camoral" }, { name: "Renz Loria" }, { name: "Jash Sempio" }] },
-  { seed: 8,  name: "Btree",                players: [{ name: "Abigail Bala" }, { name: "Van Manarin" }, { name: "Russel Ofalda" }, { name: "Celso Glova" }, { name: "Jared Lopez" }, { name: "John Paul Oquias" }] },
+  { seed: 8,  name: "Wow Shanghai",         players: [{ name: "Vonmhar Agtunong " }, { name: "Jared Gutierrez " }, { name: "Zeru Rarang" }, { name: "JK Marabella" }, { name: "Vyra Marabella" }] },
   { seed: 9,  name: "Turret Jumpers",       players: [{ name: "Ed Salazar" }, { name: "Vaughn Platon" }, { name: "Jarom Balute" }, { name: "Chaoboran Oroum" }, { name: "Redd Gonzaga" }] },
   { seed: 10, name: "Worcestershire Sauce", players: [{ name: "Dean Heber Caro" }, { name: "Dulguun" }, { name: "Wayne Allen Yusi" }, { name: "Zeph Kentaro Hatada" }, { name: "Edrian Oldem" }] },
   { seed: 11, name: "Damayge",              players: [{ name: "Louis Naingue" }, { name: "Paul Sapan" }, { name: "Ediran Oldem" }, { name: "Jadd Pacia" }, { name: "Mayge Sugabo" }, { name: "Kyle Academia" }] },
