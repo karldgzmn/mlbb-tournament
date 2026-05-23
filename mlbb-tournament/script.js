@@ -17,7 +17,7 @@ const teams = [
   { num: 11, name: "Worcestershire Sauce", captain: "Dean Caro" },
   { num: 12, name: "Turret Jumpers",       captain: "Ed Salazar" },
   { num: 13, name: "Chulalongcorn",        captain: "John Vincent Vicente" },
-  { num: 14, name: "Btree",                captain: "Abigail Bala" },
+  { num: 14, name: "Wow Shanghai",         captain: "Wow Shanghai" },
 ];
 
 // ── RULES ──
