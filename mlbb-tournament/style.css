@@ -1029,3 +1029,48 @@ footer p {
   text-transform: uppercase;
   animation: pulse 1.5s ease-in-out infinite;
 }
+/* ── SWISS STANDINGS REDESIGN ── */
+.swiss-standings-wrap { overflow-x: auto; }
+
+.swiss-table tr.row-eliminated td { background: rgba(255,36,66,0.04); }
+.swiss-table tr.row-advances td   { background: rgba(76,255,143,0.05); }
+
+.swiss-pts {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+.swiss-diff {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.diff-pos { color: #4cff8f; }
+.diff-neg { color: var(--red); }
+
+.swiss-history { white-space: nowrap; }
+
+.history-pill {
+  display: inline-block;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.55rem;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 2px;
+  margin-right: 2px;
+}
+.h-win  { background: rgba(76,255,143,0.2); color: #4cff8f; border: 1px solid rgba(76,255,143,0.3); }
+.h-loss { background: rgba(255,36,66,0.15); color: #ff6680; border: 1px solid rgba(255,36,66,0.2); }
+
+/* admin eliminated row */
+.eliminated-row td { opacity: 0.6; }
+
+.swiss-buchholz {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+}

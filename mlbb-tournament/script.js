@@ -74,28 +74,54 @@ async function renderSwissStandings() {
   const container = document.getElementById('swissStandings');
   if (!container) return;
 
-  const { data, error } = await db.from('swiss_standings').select('*').order('wins', { ascending: false });
+  const { data, error } = await db.from('swiss_standings').select('*');
   if (error) { console.error(error); return; }
 
-  const sorted = [...data].sort((a, b) => b.wins - a.wins || a.losses - b.losses);
+  // Sort by wins desc, then buchholz desc, then pts_diff desc
+  const sorted = [...data].sort((a, b) =>
+    b.wins - a.wins || a.losses - b.losses || (b.buchholz || 0) - (a.buchholz || 0) || (b.pts_diff || 0) - (a.pts_diff || 0)
+  );
 
   container.innerHTML = `
-    <table class="swiss-table">
-      <thead>
-        <tr><th>#</th><th>Team</th><th>W</th><th>L</th><th>Status</th></tr>
-      </thead>
-      <tbody>
-        ${sorted.map((t, i) => `
-          <tr class="${t.advances ? 'row-advances' : ''}">
-            <td class="swiss-pos">${i + 1}</td>
-            <td class="swiss-name">${t.name}</td>
-            <td class="swiss-w">${t.wins}</td>
-            <td class="swiss-l">${t.losses}</td>
-            <td>${t.advances ? '<span class="advance-tag">ADVANCES</span>' : '<span class="swiss-pending">—</span>'}</td>
-          </tr>`).join('')}
-      </tbody>
-    </table>
-    <p class="swiss-note">★ Top 6 teams by W-L record advance to the playoff bracket · Top 2 skip to Winners Semifinals</p>`;
+    <div class="swiss-standings-wrap">
+      <table class="swiss-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>W</th>
+            <th>L</th>
+            <th>PTS</th>
+            <th>PTS DIFF</th>
+            <th>Buchholz</th>
+            <th>History</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${sorted.map((t, i) => {
+            const isAdvancing = t.advances;
+            const isEliminated = !t.advances && (sorted.slice(0, 6).indexOf(t) === -1);
+            const rowClass = isAdvancing ? 'row-advances' : (i >= 6 ? 'row-eliminated' : '');
+            const history = (t.history || '').split('-').filter(Boolean);
+            const historyHTML = history.length
+              ? history.map(h => `<span class="history-pill ${h.trim().toUpperCase() === 'W' ? 'h-win' : 'h-loss'}">${h.trim().toUpperCase()}</span>`).join('')
+              : '<span style="color:rgba(255,255,255,0.2)">—</span>';
+            return `
+              <tr class="${rowClass}">
+                <td class="swiss-pos">${i + 1}</td>
+                <td class="swiss-name">${t.name}</td>
+                <td class="swiss-w">${t.wins}</td>
+                <td class="swiss-l">${t.losses}</td>
+                <td class="swiss-pts">${t.pts || 0}</td>
+                <td class="swiss-diff ${(t.pts_diff || 0) > 0 ? 'diff-pos' : (t.pts_diff || 0) < 0 ? 'diff-neg' : ''}">${(t.pts_diff || 0) > 0 ? '+' : ''}${t.pts_diff || 0}</td>
+                <td class="swiss-buchholz">${t.buchholz || 0}</td>
+                <td class="swiss-history">${historyHTML}</td>
+              </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+      <p class="swiss-note">★ Top 6 teams advance to playoff bracket · Top 2 skip to Winners Semifinals</p>
+    </div>`;
 }
 
 // ── SWISS ROUNDS (from Supabase) ──

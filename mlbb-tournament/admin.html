@@ -173,11 +173,11 @@
   <div class="tab-content active" id="tab-swiss">
 
     <div class="section-title">Swiss Standings</div>
-    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:1rem;">Update W/L after each round. Check Advances for the top 6 once Swiss is complete.</p>
+    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:1rem;">Update W/L/PTS/PTS DIFF/History after each round. History format: W-L-W-W (use W or L per round separated by dashes).</p>
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>#</th><th>Team</th><th>Wins</th><th>Losses</th><th>Advances</th><th></th></tr>
+          <tr><th>#</th><th>Team</th><th>W</th><th>L</th><th>PTS</th><th>PTS DIFF</th><th>Buchholz</th><th>History (W-L-W)</th><th>Advances</th><th></th></tr>
         </thead>
         <tbody id="standingsBody"></tbody>
       </table>
@@ -280,14 +280,18 @@ async function loadStandings() {
   const { data, error } = await db.from('swiss_standings').select('*').order('id');
   if (error) { console.error(error); return; }
 
-  const sorted = [...data].sort((a, b) => b.wins - a.wins || a.losses - b.losses);
+  const sorted = [...data].sort((a, b) => b.wins - a.wins || a.losses - b.losses || (b.pts_diff||0) - (a.pts_diff||0));
   const tbody = document.getElementById('standingsBody');
   tbody.innerHTML = sorted.map((t, i) => `
-    <tr class="${t.advances ? 'advancing' : ''}">
+    <tr class="${t.advances ? 'advancing' : i >= 6 ? 'eliminated-row' : ''}">
       <td style="color:var(--muted);font-family:'Orbitron',monospace;font-size:0.65rem;">${i+1}</td>
       <td><strong>${t.name}</strong></td>
       <td><input type="number" min="0" id="w-${t.id}" value="${t.wins}"></td>
       <td><input type="number" min="0" id="l-${t.id}" value="${t.losses}"></td>
+      <td><input type="number" id="pts-${t.id}" value="${t.pts||0}" style="width:65px;"></td>
+      <td><input type="number" id="diff-${t.id}" value="${t.pts_diff||0}" style="width:75px;"></td>
+      <td><input type="number" step="0.1" id="buch-${t.id}" value="${t.buchholz||0}" style="width:70px;"></td>
+      <td><input type="text" id="hist-${t.id}" value="${t.history||''}" placeholder="W-L-W-W" style="width:100px;"></td>
       <td>
         <label class="checkbox-wrap">
           <input type="checkbox" id="adv-${t.id}" ${t.advances ? 'checked' : ''}>
@@ -299,10 +303,14 @@ async function loadStandings() {
 }
 
 async function saveStanding(id) {
-  const wins    = parseInt(document.getElementById(`w-${id}`).value) || 0;
-  const losses  = parseInt(document.getElementById(`l-${id}`).value) || 0;
+  const wins     = parseInt(document.getElementById(`w-${id}`).value) || 0;
+  const losses   = parseInt(document.getElementById(`l-${id}`).value) || 0;
+  const pts      = parseInt(document.getElementById(`pts-${id}`).value) || 0;
+  const pts_diff = parseInt(document.getElementById(`diff-${id}`).value) || 0;
+  const buchholz = parseFloat(document.getElementById(`buch-${id}`).value) || 0;
+  const history  = document.getElementById(`hist-${id}`).value.trim();
   const advances = document.getElementById(`adv-${id}`).checked;
-  const { error } = await db.from('swiss_standings').update({ wins, losses, advances }).eq('id', id);
+  const { error } = await db.from('swiss_standings').update({ wins, losses, pts, pts_diff, buchholz, history, advances }).eq('id', id);
   if (error) { alert('Error: ' + error.message); return; }
   showToast();
   loadStandings();
