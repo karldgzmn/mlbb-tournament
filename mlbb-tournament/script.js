@@ -77,10 +77,13 @@ async function renderSwissStandings() {
   const { data, error } = await db.from('swiss_standings').select('*');
   if (error) { console.error(error); return; }
 
-  // Sort by wins desc, then buchholz desc, then pts_diff desc
-  const sorted = [...data].sort((a, b) =>
-    b.wins - a.wins || a.losses - b.losses || (b.buchholz || 0) - (a.buchholz || 0) || (b.pts_diff || 0) - (a.pts_diff || 0)
-  );
+  // Sort by rank_override → wins → tb → pts → buchholz → pts_diff
+  const sorted = [...data].sort((a, b) => {
+    if (a.rank_override && b.rank_override) return a.rank_override - b.rank_override;
+    if (a.rank_override) return -1;
+    if (b.rank_override) return 1;
+    return b.wins - a.wins || a.losses - b.losses || (b.tb||0) - (a.tb||0) || (b.pts||0) - (a.pts||0) || (b.buchholz||0) - (a.buchholz||0) || (b.pts_diff||0) - (a.pts_diff||0);
+  });
 
   container.innerHTML = `
     <div class="swiss-standings-wrap">
@@ -91,17 +94,16 @@ async function renderSwissStandings() {
             <th>Team</th>
             <th>W</th>
             <th>L</th>
+            <th>TB</th>
             <th>PTS</th>
-            <th>PTS DIFF</th>
             <th>Buchholz</th>
+            <th>PTS DIFF</th>
             <th>History</th>
           </tr>
         </thead>
         <tbody>
           ${sorted.map((t, i) => {
-            const isAdvancing = t.advances;
-            const isEliminated = !t.advances && (sorted.slice(0, 6).indexOf(t) === -1);
-            const rowClass = isAdvancing ? 'row-advances' : (i >= 6 ? 'row-eliminated' : '');
+            const rowClass = t.advances ? 'row-advances' : (i >= 6 ? 'row-eliminated' : '');
             const history = (t.history || '').split('-').filter(Boolean);
             const historyHTML = history.length
               ? history.map(h => `<span class="history-pill ${h.trim().toUpperCase() === 'W' ? 'h-win' : 'h-loss'}">${h.trim().toUpperCase()}</span>`).join('')
@@ -112,9 +114,10 @@ async function renderSwissStandings() {
                 <td class="swiss-name">${t.name}</td>
                 <td class="swiss-w">${t.wins}</td>
                 <td class="swiss-l">${t.losses}</td>
+                <td class="swiss-tb">${t.tb || 0}</td>
                 <td class="swiss-pts">${t.pts || 0}</td>
-                <td class="swiss-diff ${(t.pts_diff || 0) > 0 ? 'diff-pos' : (t.pts_diff || 0) < 0 ? 'diff-neg' : ''}">${(t.pts_diff || 0) > 0 ? '+' : ''}${t.pts_diff || 0}</td>
                 <td class="swiss-buchholz">${t.buchholz || 0}</td>
+                <td class="swiss-diff ${(t.pts_diff || 0) > 0 ? 'diff-pos' : (t.pts_diff || 0) < 0 ? 'diff-neg' : ''}">${(t.pts_diff || 0) > 0 ? '+' : ''}${t.pts_diff || 0}</td>
                 <td class="swiss-history">${historyHTML}</td>
               </tr>`;
           }).join('')}

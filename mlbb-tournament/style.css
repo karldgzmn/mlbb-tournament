@@ -1074,3 +1074,10 @@ footer p {
   font-size: 0.75rem;
   color: var(--accent);
 }
+
+.swiss-tb {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+}
